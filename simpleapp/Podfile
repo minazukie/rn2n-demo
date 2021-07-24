@@ -1,0 +1,32 @@
+require_relative '../node_modules/react-native/scripts/react_native_pods'
+require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+
+
+# Uncomment the next line to define a global platform for your project
+platform :ios, '11.0'
+
+target 'simpleapp' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  # use_frameworks!
+  
+  # React Native
+  config = use_native_modules!
+
+  use_react_native!(
+    :path => config[:reactNativePath],
+    # to enable hermes on iOS, change `false` to `true` and then install pods
+    :hermes_enabled => false
+  )
+
+  # Pods for simpleapp
+
+  target 'simpleappTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'simpleappUITests' do
+    # Pods for testing
+  end
+
+end
