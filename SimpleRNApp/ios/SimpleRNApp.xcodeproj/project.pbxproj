@@ -12,6 +12,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2F40BAB955F19FA513EA643D /* libPods-SimpleRNApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A6D53851A8CAAC63526266C /* libPods-SimpleRNApp.a */; };
+		46E39A8326AC3303000A644F /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E39A8226AC3303000A644F /* File.swift */; };
 		48C970A1AFFF376B14066582 /* libPods-SimpleRNApp-SimpleRNAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C52CB8C722723F6FF6A38271 /* libPods-SimpleRNApp-SimpleRNAppTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -37,6 +38,8 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SimpleRNApp/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = SimpleRNApp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = SimpleRNApp/main.m; sourceTree = "<group>"; };
+		46E39A8126AC3303000A644F /* SimpleRNApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SimpleRNApp-Bridging-Header.h"; sourceTree = "<group>"; };
+		46E39A8226AC3303000A644F /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = SimpleRNApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8A6D53851A8CAAC63526266C /* libPods-SimpleRNApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SimpleRNApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C52CB8C722723F6FF6A38271 /* libPods-SimpleRNApp-SimpleRNAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SimpleRNApp-SimpleRNAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,12 +119,14 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				46E39A8226AC3303000A644F /* File.swift */,
 				13B07FAE1A68108700A75B9A /* SimpleRNApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* SimpleRNAppTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				9CA0EF5E04222FD074114902 /* Pods */,
+				46E39A8126AC3303000A644F /* SimpleRNApp-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -145,7 +150,6 @@
 				0D6427976586C2B499970E64 /* Pods-SimpleRNApp-SimpleRNAppTests.debug.xcconfig */,
 				D34AA4B2FE0AE60F9FE0D278 /* Pods-SimpleRNApp-SimpleRNAppTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -208,7 +212,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1250;
 					};
 				};
 			};
@@ -412,6 +416,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				46E39A8326AC3303000A644F /* File.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -431,6 +436,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0D6427976586C2B499970E64 /* Pods-SimpleRNApp-SimpleRNAppTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -458,6 +464,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D34AA4B2FE0AE60F9FE0D278 /* Pods-SimpleRNApp-SimpleRNAppTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = SimpleRNAppTests/Info.plist;
@@ -498,6 +505,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SimpleRNApp;
+				SWIFT_OBJC_BRIDGING_HEADER = "SimpleRNApp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -523,6 +531,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SimpleRNApp;
+				SWIFT_OBJC_BRIDGING_HEADER = "SimpleRNApp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

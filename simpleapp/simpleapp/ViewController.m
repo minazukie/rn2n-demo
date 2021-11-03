@@ -20,7 +20,7 @@
 }
 
 - (IBAction)buttonPressed:(id)sender {
-    NSURL *jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.bundle?platform=ios"];
+    NSURL *jsCodeLocation = [NSURL URLWithString:@"http://192.168.50.88:8081/index.bundle?platform=ios"];
 
     RCTRootView *rootView =
       [[RCTRootView alloc] initWithBundleURL: jsCodeLocation
@@ -29,6 +29,20 @@
                                launchOptions: nil];
     UIViewController *vc = [[UIViewController alloc] init];
     vc.view = rootView;
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+- (IBAction)button2Pressed:(id)sender {
+    NSURL *jsCodeLocation = [NSURL URLWithString:@"http://192.168.50.88:8081/index.bundle?platform=ios"];
+
+    RCTRootView *rootView =
+      [[RCTRootView alloc] initWithBundleURL: jsCodeLocation
+                                  moduleName: @"haha"
+                           initialProperties: @{}
+                               launchOptions: nil];
+    UIViewController *vc = [[UIViewController alloc] init];
+    vc.view = rootView;
+    vc.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:vc animated:YES completion:nil];
 }
 

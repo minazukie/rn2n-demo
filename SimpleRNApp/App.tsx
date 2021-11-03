@@ -7,16 +7,27 @@
  *
  * @format
  */
+import 'react-native-gesture-handler';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import RNModal from 'react-native-modal';
+//@ts-ignore
+import {ModalView} from 'react-native-ios-modal';
 
-import React from 'react';
+const Stack = createStackNavigator();
+
+import React, {useEffect, useRef} from 'react';
 import {
   Alert,
   Button,
+  Dimensions,
+  Modal,
   SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
+  TouchableWithoutFeedback,
   useColorScheme,
   View,
 } from 'react-native';
@@ -28,6 +39,8 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import {useState} from 'react';
+import {Modalize} from 'react-native-modalize';
 
 const Section: React.FC<{
   title: string;
@@ -57,7 +70,7 @@ const Section: React.FC<{
   );
 };
 
-const App = () => {
+const Home = ({navigation}: any) => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
@@ -67,7 +80,10 @@ const App = () => {
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <Button title="呵呵呵" onPress={() => Alert.alert('hehhe')} />
+      <Button
+        title="呵呵呵"
+        onPress={() => navigation.navigate('Profile', {name: 'Jane'})}
+      />
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
@@ -95,6 +111,145 @@ const App = () => {
     </SafeAreaView>
   );
 };
+export const useModalState = (initialState: any) => {
+  const [modalVisible, setModalVisible] = useState(initialState);
+  const [forceModalVisible, setForceModalVisible] = useState(false);
+
+  const setModal = (modalState: any) => {
+    // tyring to open "already open" modal
+    if (modalState && modalVisible) {
+      setForceModalVisible(true);
+    }
+    setModalVisible(modalState);
+  };
+
+  useEffect(() => {
+    if (forceModalVisible && modalVisible) {
+      setModalVisible(false);
+    }
+    if (forceModalVisible && !modalVisible) {
+      setForceModalVisible(false);
+      setModalVisible(true);
+    }
+  }, [forceModalVisible, modalVisible]);
+
+  return [modalVisible, setModal];
+};
+
+function HomeScreen({navigation}: any) {
+  const [visible, setVisible] = useModalState(false);
+  const modalizeRef = useRef<Modalize>(null);
+  const modalRef = useRef<any>(null);
+  return (
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <Text style={{fontSize: 30}}>This is the home screen!</Text>
+      <Button
+        onPress={() => navigation.navigate('MyModal')}
+        title="Open Modal"
+      />
+      <Button
+        onPress={() => navigation.navigate('Details')}
+        title="Open Details"
+      />
+      <Button onPress={() => setVisible(true)} title="Open Native Modal" />
+      <Button
+        onPress={() => modalRef.current.setVisibility(true)}
+        title="Open Native Modal 2"
+      />
+      {/* <Modal
+        presentationStyle="pageSheet"
+        onRequestClose={() => setVisible(false)}
+        animationType="slide"
+        onDismiss={() => setVisible(false)}
+        visible={visible}>
+          
+        <TouchableWithoutFeedback
+          // for bug which prevents dismiss from firing on swipe close
+          // https://github.com/facebook/react-native/issues/26892
+          onPressOut={() => setVisible(false)}>
+          <SafeAreaView>
+            <View
+              style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+              <Button
+                onPress={() => modalizeRef.current?.open()}
+                title="Open Native Modal 2"
+              />
+
+              <Button onPress={() => setVisible(false)} title="Dismiss" />
+            </View>
+          </SafeAreaView>
+        </TouchableWithoutFeedback>
+      </Modal> */}
+      <ModalView
+        isModalBGBlurred={false}
+        isModalBGTransparent={false}
+        ref={(r: any) => (modalRef.current = r)}>
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+          <Text> Hello World !!!!</Text>
+        </View>
+      </ModalView>
+    </View>
+  );
+}
+
+function DetailsScreen() {
+  return (
+    <View>
+      <Text>Details</Text>
+    </View>
+  );
+}
+
+function ModalScreen({navigation}: any) {
+  return (
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <Text style={{fontSize: 30}}>This is a modal!</Text>
+      <Button onPress={() => navigation.goBack()} title="Dismiss" />
+    </View>
+  );
+}
+
+const MainStack = createStackNavigator();
+const RootStack = createStackNavigator();
+
+function MainStackScreen() {
+  return (
+    <MainStack.Navigator>
+      <MainStack.Screen name="Home" component={HomeScreen} />
+      <MainStack.Screen name="Details" component={DetailsScreen} />
+    </MainStack.Navigator>
+  );
+}
+
+function RootStackScreen() {
+  return (
+    <RootStack.Navigator mode="modal">
+      <RootStack.Screen
+        name="Main"
+        component={MainStackScreen}
+        options={{headerShown: false}}
+      />
+      <RootStack.Screen
+        name="MyModal"
+        component={ModalScreen}
+        options={{headerShown: false}}
+      />
+    </RootStack.Navigator>
+  );
+}
+const App = () => {
+  const isDarkMode = useColorScheme() === 'dark';
+
+  const backgroundStyle = {
+    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  };
+
+  return (
+    <NavigationContainer>
+      <RootStackScreen />
+    </NavigationContainer>
+  );
+};
 
 const styles = StyleSheet.create({
   sectionContainer: {
@@ -114,5 +269,11 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 });
-
+export function App2() {
+  return (
+    <View>
+      <Text>asdf</Text>
+    </View>
+  );
+}
 export default App;
